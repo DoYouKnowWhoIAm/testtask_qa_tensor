@@ -35,7 +35,6 @@ class TestScripts:
         assert partners_my_region != partners_new_region
         assert "41-kamchatskij-kraj" in self.driver.current_url
         assert "Камчатский край" in self.driver.title
-        print(partners_my_region, partners_new_region, self.driver.current_url, self.driver.title)
 
     def test_script_three(self):
         self.main_page.open_sbis_ru()
