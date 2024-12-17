@@ -1,4 +1,5 @@
-from selenium.webdriver.common.by import By
+import os
+
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import  expected_conditions as EC
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -21,3 +22,9 @@ class BasePage:
 
     def wait_text(self, locator, text):
         return self.wait.until(EC.text_to_be_present_in_element(locator, text_=text))
+
+    def wait_download(self, download_dir, file_type=".exe"):
+        self.wait.until(lambda driver: any(
+            filename.endswith(file_type)
+            for filename in os.listdir(download_dir))
+                        )

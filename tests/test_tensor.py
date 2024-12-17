@@ -1,3 +1,5 @@
+import os
+
 from pages.sbis_page import MainPage
 from pages.tensor_page import TensorPage
 
@@ -36,4 +38,13 @@ class TestScripts:
         print(partners_my_region, partners_new_region, self.driver.current_url, self.driver.title)
 
     def test_script_three(self):
-        pass
+        self.main_page.open_sbis_ru()
+        self.main_page.click_download_link()
+        expected_size = self.main_page.download_file()
+        self.main_page.wait_download(os.getcwd())
+        assert os.path.exists(f"{os.getcwd()}/sbisplugin-setup-web.exe")
+        assert round(
+            os.path.getsize(
+                os.path.join(os.getcwd(), "sbisplugin-setup-web.exe")
+            ) / (1024 * 1024), 2
+        ) == expected_size

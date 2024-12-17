@@ -10,6 +10,8 @@ class MainPage(BasePage):
     REGION = (By.CLASS_NAME, "sbis_ru-Region-Chooser__text")
     REGION_KAMCHATKA = (By.CSS_SELECTOR, "span[title='Камчатский край']")
     PARTNERS = (By.CLASS_NAME, "sbisru-Contacts-List__name")
+    DOWNLOAD_LINK = (By.LINK_TEXT, "Скачать локальные версии")
+    PLUGIN_DOWNLOAD = (By.CLASS_NAME, "sbis_ru-DownloadNew-loadLink__link")
 
     def open_sbis_ru(self):
         self.open_site(self.SBIS_URL)
@@ -43,3 +45,12 @@ class MainPage(BasePage):
         self.find_region().click()
         self.find_element(self.REGION_KAMCHATKA).click()
         self.wait_text(self.REGION, "Камчатский край")
+
+    def click_download_link(self):
+        download_link_button = self.find_element(self.DOWNLOAD_LINK)
+        download_link_button.click()
+
+    def download_file(self):
+        download_button = self.find_elements(self.PLUGIN_DOWNLOAD)[0]
+        download_button.click()
+        return float(download_button.text.split(" ")[2])
