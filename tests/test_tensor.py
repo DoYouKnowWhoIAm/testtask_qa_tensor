@@ -3,6 +3,8 @@ import os
 from pages.sbis_page import MainPage
 from pages.tensor_page import TensorPage
 
+from logging_utils import log_me
+
 
 class TestScripts:
 
@@ -10,6 +12,7 @@ class TestScripts:
         self.main_page = MainPage(self.driver)
         self.tensor_page = TensorPage(self.driver)
 
+    @log_me
     def test_script_one(self):
         self.main_page.open_sbis_ru()
         self.main_page.click_to_contacts()
@@ -21,6 +24,7 @@ class TestScripts:
         assert self.driver.current_url == "https://tensor.ru/about", "Не перешли на страницу 'О нас'"
         assert self.tensor_page.check_photos_equal_size(), "Размеры фотографий разные"
 
+    @log_me
     def test_script_two(self):
         self.main_page.open_sbis_ru()
         self.main_page.click_to_contacts()
@@ -36,6 +40,7 @@ class TestScripts:
         assert "41-kamchatskij-kraj" in self.driver.current_url
         assert "Камчатский край" in self.driver.title
 
+    @log_me
     def test_script_three(self):
         self.main_page.open_sbis_ru()
         self.main_page.click_download_link()
